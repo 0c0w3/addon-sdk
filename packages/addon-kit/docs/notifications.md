@@ -36,25 +36,29 @@ Examples
 Here's a typical example.  When the message is clicked, a string is logged to
 the console.
 
-    var notifications = require("notifications");
-    notifications.notify({
-      title: "Jabberwocky",
-      text: "'Twas brillig, and the slithy toves",
-      data: "did gyre and gimble in the wabe",
-      onClick: function (data) {
-        console.log(data);
-        // console.log(this.data) would produce the
-        // same result in this case.
-      }
-    });
+<pre class="jetpack-lab-code">
+var notifications = require("notifications");
+notifications.notify({
+  title: "Jabberwocky",
+  text: "'Twas brillig, and the slithy toves",
+  data: "did gyre and gimble in the wabe",
+  onClick: function (data) {
+    console.log(data);
+    // console.log(this.data) would produce the
+    // same result in this case.
+  }
+});
+</pre>
 
 This one displays an icon that's stored in the add-on's `data` directory.  (See
 the `self` module documentation for more information.)
 
-    var notifications = require("notifications");
-    var self = require("self");
-    var myIconURL = self.data.url("myIcon.png");
-    notifications.notify({
-      text: "I have an icon!",
-      iconURL: myIconURL
-    });
+<pre class="jetpack-lab-code">
+var notifications = require("notifications");
+var self = require("self");
+var myIconURL = self.data.url("myIcon.png");
+notifications.notify({
+  text: "I have an icon!",
+  iconURL: myIconURL
+});
+</pre>

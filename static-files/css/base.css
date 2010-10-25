@@ -234,3 +234,42 @@ table.meta-table {
     white-space: pre-wrap;
     color: red;
 }
+
+
+/*XXXadw*/
+
+.jetpack-lab-editor {
+    padding-left: 1em;
+}
+
+textarea {
+    border: 3px solid transparent;
+    font-family: Monaco, Lucida Console, monospace;
+    font-size: 8pt;
+    padding: 1em;
+}
+
+textarea.jetpack-lab-editor-code {
+/*    background: #ddf;*/
+    background: #f0f0f0;
+    margin-bottom: 1em;
+}
+
+textarea.jetpack-lab-editor-code:hover,
+textarea.jetpack-lab-editor-code:focus {
+/*    border: 3px solid #ccf;*/
+    border-color: #d0d0d0;
+}
+
+textarea.jetpack-lab-editor-console {
+    background: #ffc;
+}
+
+textarea.jetpack-lab-editor-console:hover,
+textarea.jetpack-lab-editor-console:focus {
+    border-color: #ff9;
+}
+
+.jetpack-lab-editor-buttons {
+    margin-bottom: 1em;
+}

@@ -37,49 +37,51 @@ forthcoming example will demonstrate an extension.
 With this in mind, let's create a file at `lib/main.js` with the
 following content:
 
-    // Import the APIs we need.
-    var contextMenu = require("context-menu");
-    var request = require("request");
-    var selection = require("selection");
+<pre class="jetpack-lab-code">
+// Import the APIs we need.
+var contextMenu = require("context-menu");
+var request = require("request");
+var selection = require("selection");
 
-    // Create a new context menu item.
-    var menuItem = contextMenu.Item({
+// Create a new context menu item.
+var menuItem = contextMenu.Item({
 
-      label: "Translate Selection",
+  label: "Translate Selection",
 
-      // Show this item when a selection exists.
-      context: contextMenu.SelectionContext(),
+  // Show this item when a selection exists.
+  context: contextMenu.SelectionContext(),
 
-      // When this item is clicked, post a message to the item with the
-      // selected text and current URL.
-      contentScript: 'on("click", function () {' +
-                     '  var text = window.getSelection().toString();' +
-                     '  postMessage({ text: text, url: document.URL });' +
-                     '});',
+  // When this item is clicked, post a message to the item with the
+  // selected text and current URL.
+  contentScript: 'on("click", function () {' +
+                 '  var text = window.getSelection().toString();' +
+                 '  postMessage({ text: text, url: document.URL });' +
+                 '});',
 
-      // When we receive the message, call the Google Translate API with the
-      // selected text and replace it with the translation.
-      onMessage: function (selectionInfo) {
-        var req = request.Request({
-          url: "http://ajax.googleapis.com/ajax/services/language/translate",
-          content: {
-            v: "1.0",
-            q: selectionInfo.text,
-            langpair: "|en"
-          },
-          headers: {
-            Referer: selectionInfo.url
-          },
-          onComplete: function (response) {
-            selection.text = response.json.responseData.translatedText;
-          }
-        });
-        req.get();
+  // When we receive the message, call the Google Translate API with the
+  // selected text and replace it with the translation.
+  onMessage: function (selectionInfo) {
+    var req = request.Request({
+      url: "http://ajax.googleapis.com/ajax/services/language/translate",
+      content: {
+        v: "1.0",
+        q: selectionInfo.text,
+        langpair: "|en"
+      },
+      headers: {
+        Referer: selectionInfo.url
+      },
+      onComplete: function (response) {
+        selection.text = response.json.responseData.translatedText;
       }
     });
+    req.get();
+  }
+});
 
-    // Add the new menu item to the application's context menu.
-    contextMenu.add(menuItem);
+// Add the new menu item to the application's context menu.
+contextMenu.add(menuItem);
+</pre>
 
 ### Listening for Load and Unload ###
 

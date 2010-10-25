@@ -365,16 +365,19 @@ First, don't forget to import the module:
 Show an "Edit Page Source" item when the user right-clicks a non-interactive
 part of the page:
 
-    var pageSourceItem = contextMenu.Item({
-      label: "Edit Page Source",
-      contentScript: 'on("click", function (node, data) {' +
-                     '  postMessage(document.URL);' +
-                     '});',
-      onMessage: function (pageURL) {
-        editSource(page.URL);
-      }
-    });
-    contextMenu.add(pageSourceItem);
+<pre class="jetpack-lab-code">
+var contextMenu = require("context-menu");
+var pageSourceItem = contextMenu.Item({
+  label: "Edit Page Source",
+  contentScript: 'on("click", function (node, data) {' +
+                 '  postMessage(document.URL);' +
+                 '});',
+  onMessage: function (pageURL) {
+    editSource(page.URL);
+  }
+});
+contextMenu.add(pageSourceItem);
+</pre>
 
 Show an "Edit Image" item when the menu is invoked on an image:
 
