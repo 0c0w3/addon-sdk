@@ -55,9 +55,9 @@ on("message", function (msg) {
   if (!gActiveConsole.textContent)
     gActiveConsole.textContent = "Console:\n\n";
   gActiveConsole.textContent += msg.msg;
+  gActiveConsole.className = "jetpack-lab-editor-console";
   if (["error", "exception"].indexOf(msg.type) >= 0)
-    gActiveConsole.className =
-      "jetpack-lab-editor-console jetpack-lab-editor-console-error";
+    gActiveConsole.className += " jetpack-lab-editor-console-error";
 });
 
 function fixupWindow() {
@@ -103,22 +103,22 @@ function makeEditorDiv(content, rows, cols) {
   runButton.setAttribute("accesskey", "r");
   runButton.textContent = "Run";
   runButton.addEventListener("click", function () {
+    runButton.disabled = true;
+    setTimeout(function () runButton.disabled = false, 1000);
     gActiveConsole = console;
     postMessage({ type: "run", code: editor.value });
-    runButton.disabled = true;
-    window.setTimeout(function () runButton.disabled = false, 1000);
   }, true);
 
   let revertButton = document.createElement("button");
   revertButton.textContent = "Unload and Revert";
   revertButton.addEventListener("click", function () {
+    revertButton.disabled = true;
+    setTimeout(function () revertButton.disabled = false, 1000);
     editor.value = content;
-    postMessage({ type: "unload" });
     console.style.display = "none";
     console.textContent = "";
-    console.className = " jetpack-lab-editor-console";
-    revertButton.disabled = true;
-    window.setTimeout(function () revertButton.disabled = false, 1000);
+    console.className = "jetpack-lab-editor-console";
+    postMessage({ type: "unload" });
   }, true);
 
   buttonDiv.appendChild(runButton);
