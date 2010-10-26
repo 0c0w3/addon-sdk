@@ -102,7 +102,10 @@ function runCode(worker, code) {
 
   let loader = new Loader({
     rootPaths: packaging.options.rootPaths.slice(),
-    console: facadeConsole
+    console: facadeConsole,
+    globals: {
+      packaging: packaging
+    }
   });
 
   try {
