@@ -79,8 +79,10 @@ function onWorkerAttach(worker) {
       workerLoader = runCode(worker, msg.code);
       break;
     case "unload":
-      if (workerLoader)
+      if (workerLoader) {
         workerLoader.unload();
+        workerLoader = null;
+      }
       break;
     }
   });
