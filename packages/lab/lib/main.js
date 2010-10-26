@@ -46,7 +46,8 @@ const { Loader } = require("cuddlefish");
 const LAB_PAGES_PREF = "extensions.jetpack-lab.pages";
 
 const DEFAULT_LAB_PAGES = [
-  "http://127.0.0.1:8888/*",
+  "http://127.0.0.1*",
+  "http://localhost*",
   "*.mozillalabs.com"
 ];
 

@@ -35,6 +35,9 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
+const DEFAULT_ROWS = "15";
+const DEFAULT_COLS = "80";
+
 let gActiveConsole = null;
 
 window.jetpackLab = {
@@ -80,16 +83,16 @@ function makeEditorDiv(content, rows, cols) {
   let editor = document.createElement("textarea");
   editor.className = "jetpack-lab-editor-code";
   editor.style.display = "block";
-  editor.setAttribute("rows", rows || "15");
-  editor.setAttribute("cols", cols || "80");
+  editor.setAttribute("rows", rows || DEFAULT_ROWS);
+  editor.setAttribute("cols", cols || DEFAULT_COLS);
   editor.setAttribute("spellcheck", "false");
   editor.value = content;
 
   let console = document.createElement("textarea");
   console.className = "jetpack-lab-editor-console";
   console.style.display = "none";
-  console.setAttribute("rows", "15");
-  console.setAttribute("cols", cols || "80");
+  console.setAttribute("rows", DEFAULT_ROWS);
+  console.setAttribute("cols", cols || DEFAULT_COLS);
   console.setAttribute("spellcheck", "false");
   console.setAttribute("readonly", "true");
 
