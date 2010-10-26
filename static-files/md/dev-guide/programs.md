@@ -83,6 +83,14 @@ var menuItem = contextMenu.Item({
 contextMenu.add(menuItem);
 </pre>
 
+<div class="jetpack-lab-show-when-installed">
+  <p>
+    Click the Run button and visit
+    <a href="http://ja.wikipedia.org/" target="_blank">Wikipedia Japan</a>
+    to try it out!
+  </p>
+</div>
+
 ### Listening for Load and Unload ###
 
 We take a moment to note that just as your program is loaded when it starts, it
