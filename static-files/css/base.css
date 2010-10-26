@@ -247,6 +247,10 @@ textarea.jetpack-lab-editor-code {
     padding: 1em;
 }
 
+.jetpack-lab-editor-buttons {
+    text-align: right;
+}
+
 textarea.jetpack-lab-editor-console {
     margin-top: 1em;
 }

@@ -6,6 +6,15 @@
   </p>
 </div>
 
+<div class="jetpack-lab-show-when-installed">
+  <p>
+    Click the Run button to load and run the code below&mdash;then try editing
+    it.  The Unload and Revert button undoes the modifications it's made and
+    reverts your changes.  (Tip: You can press Alt+R or Control+R instead of
+    clicking Run.)
+  </p>
+</div>
+
 <pre class="jetpack-lab-code">
 var notifications = require("notifications");
 notifications.notify({

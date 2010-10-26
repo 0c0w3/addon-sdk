@@ -35,6 +35,8 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
+let gActiveConsole = null;
+
 window.jetpackLab = {
   fixupWindow: fixupWindow
 };
@@ -43,6 +45,17 @@ window.addEventListener("unload", function (event) {
   if (event.target === document)
     postMessage({ type: "unload" });
 }, true);
+
+// This handles console messages.
+on("message", function (msg) {
+  gActiveConsole.style.display = "block";
+  if (!gActiveConsole.textContent)
+    gActiveConsole.textContent = "Console:\n\n";
+  gActiveConsole.textContent += msg.msg;
+  if (["error", "exception"].indexOf(msg.type) >= 0)
+    gActiveConsole.className =
+      "jetpack-lab-editor-console jetpack-lab-editor-console-error";
+});
 
 function fixupWindow() {
   let nodes = document.querySelectorAll(".jetpack-lab-hide-when-installed");
@@ -62,15 +75,21 @@ function makeEditorDiv(content) {
   let div = document.createElement("div");
   div.className = "jetpack-lab-editor";
 
-  let editorDiv = document.createElement("div");
   let editor = document.createElement("textarea");
   editor.className = "jetpack-lab-editor-code";
+  editor.style.display = "block";
   editor.setAttribute("rows", "15");
   editor.setAttribute("cols", "80");
   editor.setAttribute("spellcheck", "false");
   editor.value = content;
-  editorDiv.appendChild(editor);
-  div.appendChild(editorDiv);
+
+  let console = document.createElement("textarea");
+  console.className = "jetpack-lab-editor-console";
+  console.style.display = "none";
+  console.setAttribute("rows", "15");
+  console.setAttribute("cols", "80");
+  console.setAttribute("spellcheck", "false");
+  console.setAttribute("readonly", "true");
 
   let buttonDiv = document.createElement("div");
   buttonDiv.className = "jetpack-lab-editor-buttons";
@@ -79,49 +98,31 @@ function makeEditorDiv(content) {
   runButton.setAttribute("accesskey", "r");
   runButton.textContent = "Run";
   runButton.addEventListener("click", function () {
+    gActiveConsole = console;
     postMessage({ type: "run", code: editor.value });
     runButton.disabled = true;
     window.setTimeout(function () runButton.disabled = false, 1000);
   }, true);
-  buttonDiv.appendChild(runButton);
-
-  buttonDiv.appendChild(document.createTextNode(" "));
 
   let revertButton = document.createElement("button");
   revertButton.textContent = "Unload and Revert";
   revertButton.addEventListener("click", function () {
     editor.value = content;
     postMessage({ type: "unload" });
-    consoleDiv.style.display = "none";
+    console.style.display = "none";
     console.textContent = "";
     console.className = " jetpack-lab-editor-console";
     revertButton.disabled = true;
     window.setTimeout(function () revertButton.disabled = false, 1000);
   }, true);
+
+  buttonDiv.appendChild(runButton);
+  buttonDiv.appendChild(document.createTextNode(" "));
   buttonDiv.appendChild(revertButton);
 
+  div.appendChild(editor);
   div.appendChild(buttonDiv);
-
-  let consoleDiv = document.createElement("div");
-  let console = document.createElement("textarea");
-  console.className = "jetpack-lab-editor-console";
-  console.setAttribute("rows", "15");
-  console.setAttribute("cols", "80");
-  console.setAttribute("spellcheck", "false");
-  console.setAttribute("readonly", "true");
-  consoleDiv.appendChild(console);
-  consoleDiv.style.display = "none";
-  div.appendChild(consoleDiv);
-
-  this.on("message", function (msg) {
-    consoleDiv.style.display = "block";
-    if (!console.textContent)
-      console.textContent = "Console:\n\n";
-    console.textContent += msg.msg;
-    if (["error", "exception"].indexOf(msg.type) >= 0)
-      console.className =
-        "jetpack-lab-editor-console jetpack-lab-editor-console-error";
-  });
+  div.appendChild(console);
 
   return div;
 }
