@@ -66,20 +66,22 @@ function fixupWindow() {
 
   nodes = document.querySelectorAll(".jetpack-lab-code");
   Array.forEach(nodes, function (node) {
-    let div = makeEditorDiv(node.textContent);
+    let rows = node.getAttribute("rows");
+    let cols = node.getAttribute("cols");
+    let div = makeEditorDiv(node.textContent, rows, cols);
     node.parentNode.replaceChild(div, node);
   });
 }
 
-function makeEditorDiv(content) {
+function makeEditorDiv(content, rows, cols) {
   let div = document.createElement("div");
   div.className = "jetpack-lab-editor";
 
   let editor = document.createElement("textarea");
   editor.className = "jetpack-lab-editor-code";
   editor.style.display = "block";
-  editor.setAttribute("rows", "15");
-  editor.setAttribute("cols", "80");
+  editor.setAttribute("rows", rows || "15");
+  editor.setAttribute("cols", cols || "80");
   editor.setAttribute("spellcheck", "false");
   editor.value = content;
 
@@ -87,7 +89,7 @@ function makeEditorDiv(content) {
   console.className = "jetpack-lab-editor-console";
   console.style.display = "none";
   console.setAttribute("rows", "15");
-  console.setAttribute("cols", "80");
+  console.setAttribute("cols", cols || "80");
   console.setAttribute("spellcheck", "false");
   console.setAttribute("readonly", "true");
 

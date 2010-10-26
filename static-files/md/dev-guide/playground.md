@@ -15,7 +15,7 @@
   </p>
 </div>
 
-<pre class="jetpack-lab-code">
+<pre class="jetpack-lab-code" rows="25">
 var notifications = require("notifications");
 notifications.notify({
   title: "Hello!",
