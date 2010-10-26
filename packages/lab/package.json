@@ -3,7 +3,7 @@
     "license": "MPL 1.1/GPL 2.0/LGPL 2.1", 
     "author": "Drew Willcoxon <adw@mozilla.com>", 
     "url": "http://github.com/0c0w3/addon-sdk/tree/jetpack-lab", 
-    "description": "Atul's Cuddlefish Lab, extended to work on any pages, integreated with the docs, and rewritten using page-mod.", 
+    "description": "Atul's Cuddlefish Lab, extended to work on any page, integrated with the docs, and rewritten using page-mod.", 
     "dependencies": [
         "jetpack-core",
         "addon-kit"
