@@ -117,7 +117,6 @@ function makeEditorDiv(content, rows, cols) {
     editor.value = content;
     console.style.display = "none";
     console.textContent = "";
-    console.className = "jetpack-lab-editor-console";
     postMessage({ type: "unload" });
   }, true);
 
