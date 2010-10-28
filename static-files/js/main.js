@@ -210,7 +210,6 @@ function startApp(jQuery, window) {
       // TODO: This actually just results in a 404.
       $("#view-source").attr("href", "");
 
-    //XXXadw
     if (window.jetpackLab)
       window.jetpackLab.fixupWindow();
 
@@ -460,9 +459,6 @@ function startApp(jQuery, window) {
     if (href.length && href[0] == "#")
       shouldFadeAndScroll = true;
   });
-
-//   if (window.jetpackLab)
-//     window.jetpackLab.registerWindow(window);
 }
 
 $(window).ready(function() { startApp(jQuery, window); });
